@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/cornwalljeremy/just-tech-news#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "espress": "0.0.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"
