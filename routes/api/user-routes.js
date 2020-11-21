@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { route } = require(".");
-const { User } = require("../../models");
+const { User, Post, Vote } = require("../../models");
 
 router.get("/", (req, res) => {
   User.findAll({
@@ -15,9 +15,22 @@ router.get("/", (req, res) => {
 // GET /api/users/1
 router.get("/:id", (req, res) => {
   User.findOne({
+    
     where: {
       id: req.params.id,
     },
+    include: [
+      {
+        model: Post,
+        attributes: ['id', 'title', 'post_url', 'created_at']
+      },
+      {
+        model: Post,
+        attributes: ['title'],
+        through: Vote,
+        as: 'voted_posts'
+      }
+    ]
   })
     .then((dbUserData) => {
       if (!dbUserData) {
